@@ -375,7 +375,6 @@ def eval_fairgbm(X_train, X_test, y_train, y_test, pcs, seed):
 
 def main(label):
     datasets = ['dutch_census', 'adult', 'german_credit', 'credit_card_clients', 'bank_marketing', 'oulad', 'lawschool']
-    datasets=['adult']
     results = dict()
     fm_budget_dict = dict()
     for dataset in datasets:
