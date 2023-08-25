@@ -5,6 +5,19 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 
+'''
+ref:
+
+Agarwal, A., Beygelzimer, A., Dudik, M., Langford, J. & Wallach, H.. (2018). 
+A Reductions Approach to Fair Classification. Proceedings of the 35th International 
+Conference on Machine Learning, in Proceedings of Machine Learning Research 80:60-69 
+Available from https://proceedings.mlr.press/v80/agarwal18a.html.
+
+Hardt, Moritz, Eric Price, and Nati Srebro. 
+"Equality of opportunity in supervised learning." 
+Advances in neural information processing systems 29 (2016).
+'''
+
 def fl_mitigator(train_X, train_y, test_X, protected_classes, model):
     train_A = pd.DataFrame()
     test_A = pd.DataFrame()

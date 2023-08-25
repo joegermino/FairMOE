@@ -3,6 +3,15 @@ import baselines.zafar_loss_funcs as lf
 import baselines.zafar_utils as ut
 import baselines.zafar_funcs_disp_mist as fdm
 
+'''
+ref: 
+
+Zafar, M.B., Valera, I., Rogriguez, M.G. & Gummadi, K.P.. (2017). 
+Fairness Constraints: Mechanisms for Fair Classification. 
+Proceedings of the 20th International Conference on Artificial Intelligence and Statistics, 
+in Proceedings of Machine Learning Research 54:962-970 Available from https://proceedings.mlr.press/v54/zafar17a.html.
+'''
+
 
 def fairness_constraints_paper(train_X, train_y, test_X, test_y, pcs):
     # http://proceedings.mlr.press/v54/zafar17a/zafar17a.pdf

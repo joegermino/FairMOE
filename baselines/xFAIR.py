@@ -4,6 +4,14 @@ from sklearn.linear_model import LogisticRegression, LinearRegression
 from imblearn.over_sampling import SMOTE
 import copy
 
+'''
+ref:
+
+Kewen Peng, Joymallya Chakraborty, and Tim Menzies. 2022. 
+FairMask: Better Fairness via Model-Based Rebalancing of Protected Attributes. 
+IEEE Trans. Softw. Eng. 49, 4 (April 2023), 2426–2439. https://doi.org/10.1109/TSE.2022.3220713
+'''
+
 
 def xFAIR(X_train, y_train, X_test, pcs, seed, smote1=True, thresh=.5):  # Also called FairMask
     base_clf = RandomForestClassifier(random_state=seed, n_jobs=-1)  # This is from the code on github

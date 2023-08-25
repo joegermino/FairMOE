@@ -91,7 +91,6 @@ def eval_fm_overall(X_train, X_test, y_train, y_test, pcs, dataset, seed, label)
     fairmoe.fit(X_train, y_train)
     fit_time = time.process_time() - fit_start
     
-    # I should probs change this block into another function
     fairmoe.set_non_interp_budget(1.0)
     fairmoe.set_use_counterfactual_fairness(True)
     predict_start = time.process_time()

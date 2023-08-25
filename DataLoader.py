@@ -9,6 +9,13 @@ def _str_replace(string):
     return string
     
 def get_dutch_census_data():
+    '''
+    ref:
+    Van der Laan, P. (2000). The 2001 census in the netherlands. In Conference the Census of Population
+
+    Le Quy, T., Roy, A., Friege, G., & Ntoutsi, E. (2021). Fair-capacitated clustering. 
+    In Proceedings of the 14th International Conference on Educational Data Mining (EDM21). (pp. 407-414).
+    '''
     data = arff.loadarff('data/dutch_census/dutch_census_2001.arff')
     df = pd.DataFrame(data[0])
     for col in df.columns:
@@ -20,6 +27,10 @@ def get_dutch_census_data():
     return X.reset_index(drop=True), y.reset_index(drop=True)
 
 def get_adult_data():
+    '''
+    ref:
+    Becker,Barry and Kohavi,Ronny. (1996). Adult. UCI Machine Learning Repository. https://doi.org/10.24432/C5XW20.
+    '''
     cols = ['age', 'workclass', 'fnlwgt', 'education', 'education_num', 
             'marital_status', 'occupation', 'relationship', 'race', 'sex', 'capital_gain', 
             'capital_loss', 'hours_per_week', 'native_country', 'y']
@@ -40,43 +51,11 @@ def get_adult_data():
     X.columns = [_str_replace(col) for col in X.columns]
     return X.reset_index(drop=True), y.reset_index(drop=True)
 
-def get_kdd_census_data():
-    cols = ['age', 'class_of_worker', 'detailed_industry_recode', 'detailed occupation recode',
-    'education', 'wage_per_hour', 'enroll_in_edu_inst_last_wk', 'marital_stat',
-    'major_industry_code', 'major_occupation_code', 'race', 'hispanic_origin', 'sex',
-    'member_of_a_labor_union', 'reason_for_unemployment', 'full_or_part_time_employment_stat',
-    'capital_gains', 'capital_losses', 'dividends_from_stocks', 'tax_filer_stat', 'region_of_previous_residence',
-    'state_of_previous_residence', 'detailed_household_and_family_stat', 'detailed_household_summary_in_household',
-    'instance_weight', 'migration_code_change_in_msa', 'migration_code_change_in_reg', 'migration_code_move_within_reg',
-    'live_in_this_house_1_year_ago', 'migration_prev_res_in_sunbelt', 'num_persons_worked_for_employer',
-    'family_members_under_18', 'country_of_birth_father', 'country_of_birth_mother',
-    'country of birth self', 'citizenship', 'own_business_or_self_employed', 'fill_inc_questionnaire_for_veterans_admin',
-    'veterans_benefits', 'weeks_worked_in_year', 'year', 'y']
-    data = pd.read_csv('data/kdd_census_income/census-income.data.gz', na_values=[' ?', ' NA'],  names=cols) # The survey treats ' NA' as missing values but it's unclear to me if this is accurate
-    data2 = pd.read_csv('data/kdd_census_income/census-income.test.gz', na_values=[' ?', ' NA'],  names=cols)
-    data = pd.concat((data, data2), axis=0)
-    data = data.drop(['instance_weight', 'migration_code_change_in_msa', 'migration_code_change_in_reg', 'migration_code_move_within_reg','migration_prev_res_in_sunbelt'],axis=1)
-    data = data.dropna()
-    data['y'] = data['y'] == ' 50000+.'
-    data['y'] = data['y'].apply(lambda x: int(x))
-    data = data.reset_index(drop=True)
-    cat_cols = ['class_of_worker', 'detailed_industry_recode', 'detailed occupation recode',
-    'education', 'enroll_in_edu_inst_last_wk', 'marital_stat',
-    'major_industry_code', 'major_occupation_code', 'race', 'hispanic_origin', 'sex',
-    'member_of_a_labor_union', 'reason_for_unemployment', 'full_or_part_time_employment_stat',
-    'tax_filer_stat', 'region_of_previous_residence',
-    'state_of_previous_residence', 'detailed_household_and_family_stat', 'detailed_household_summary_in_household',
-    'live_in_this_house_1_year_ago', 'family_members_under_18', 'country_of_birth_father', 'country_of_birth_mother',
-    'country of birth self', 'citizenship', 'own_business_or_self_employed', 'fill_inc_questionnaire_for_veterans_admin',
-    'veterans_benefits', 'year']
-    for col in cat_cols:
-        data = pd.get_dummies(data, columns=[col], prefix = [col], drop_first=True)
-    y = data['y']
-    X = data.drop('y', axis=1)
-    X.columns = [_str_replace(col) for col in X.columns]
-    return X.reset_index(drop=True), y.reset_index(drop=True)
-
 def get_german_credit_data():
+    '''
+    ref:
+    Hofmann,Hans. (1994). Statlog (German Credit Data). UCI Machine Learning Repository. https://doi.org/10.24432/C5NC77.
+    '''
     cols = ['status_of_existing_checking_account', 'duration_in_month', 'credit_history', 'purpose',
     'credit_amount', 'savings_account_bonds', 'present_employment_since', 
     'installment_rate_in_percentage_of_disposable_income', 'personal_status_and_sex',
@@ -100,6 +79,10 @@ def get_german_credit_data():
     return X.reset_index(drop=True), y.reset_index(drop=True)
 
 def get_bank_marketing_data(): # This does not touch bank-additional since that is what the survey paper appears to do 
+    '''
+    ref:
+    Moro,S., Rita,P., and Cortez,P.. (2012). Bank Marketing. UCI Machine Learning Repository. https://doi.org/10.24432/C5K306.
+    '''
     data = pd.read_table('data/bank_marketing/bank-full.csv', sep=';')
     data['y'] = data['y'] == 'yes'
     data['y'] = data['y'].apply(lambda x: int(x))
@@ -123,6 +106,10 @@ def get_bank_marketing_data(): # This does not touch bank-additional since that 
     return X.reset_index(drop=True), y.reset_index(drop=True)
 
 def get_credit_card_data():
+    '''
+    ref:
+    Yeh,I-Cheng. (2016). default of credit card clients. UCI Machine Learning Repository. https://doi.org/10.24432/C55S3H.
+    '''
     data = pd.read_csv('data/credit_card_clients/default of credit card clients.csv')
     data['SEX'] = data['SEX'] == 1
     data['SEX'] = data['SEX'].apply(lambda x: int(x))
@@ -134,113 +121,12 @@ def get_credit_card_data():
     X.columns = [_str_replace(col) for col in X.columns]
     return X.reset_index(drop=True), y.reset_index(drop=True)
 
-def get_communities_data():
-    cols = ['state','county','community','communityname','fold','population','householdsize','racepctblack',
-    'racePctWhite','racePctAsian','racePctHisp','agePct12t21','agePct12t29','agePct16t24','agePct65up','numbUrban',
-    'pctUrban','medIncome','pctWWage','pctWFarmSelf','pctWInvInc','pctWSocSec','pctWPubAsst','pctWRetire','medFamInc',
-    'perCapInc','whitePerCap','blackPerCap','indianPerCap','AsianPerCap','OtherPerCap','HispPerCap','NumUnderPov',
-    'PctPopUnderPov','PctLess9thGrade','PctNotHSGrad','PctBSorMore','PctUnemployed','PctEmploy','PctEmplManu',
-    'PctEmplProfServ','PctOccupManu','PctOccupMgmtProf','MalePctDivorce','MalePctNevMarr','FemalePctDiv','TotalPctDiv',
-    'PersPerFam','PctFam2Par','PctKids2Par','PctYoungKids2Par','PctTeen2Par','PctWorkMomYoungKids','PctWorkMom','NumIlleg',
-    'PctIlleg','NumImmig','PctImmigRecent','PctImmigRec5','PctImmigRec8','PctImmigRec10','PctRecentImmig','PctRecImmig5',
-    'PctRecImmig8','PctRecImmig10','PctSpeakEnglOnly','PctNotSpeakEnglWell','PctLargHouseFam','PctLargHouseOccup',
-    'PersPerOccupHous','PersPerOwnOccHous','PersPerRentOccHous','PctPersOwnOccup','PctPersDenseHous','PctHousLess3BR',
-    'MedNumBR','HousVacant','PctHousOccup','PctHousOwnOcc','PctVacantBoarded','PctVacMore6Mos','MedYrHousBuilt',
-    'PctHousNoPhone','PctWOFullPlumb','OwnOccLowQuart','OwnOccMedVal','OwnOccHiQuart','RentLowQ','RentMedian','RentHighQ',
-    'MedRent','MedRentPctHousInc','MedOwnCostPctInc','MedOwnCostPctIncNoMtg','NumInShelters','NumStreet','PctForeignBorn',
-    'PctBornSameState','PctSameHouse85','PctSameCity85','PctSameState85','LemasSwornFT','LemasSwFTPerPop','LemasSwFTFieldOps',
-    'LemasSwFTFieldPerPop','LemasTotalReq','LemasTotReqPerPop','PolicReqPerOffic','PolicPerPop','RacialMatchCommPol',
-    'PctPolicWhite','PctPolicBlack','PctPolicHisp','PctPolicAsian','PctPolicMinor','OfficAssgnDrugUnits','NumKindsDrugsSeiz',
-    'PolicAveOTWorked','LandArea','PopDens','PctUsePubTrans','PolicCars','PolicOperBudg','LemasPctPolicOnPatr',
-    'LemasGangUnitDeploy','LemasPctOfficDrugUn','PolicBudgPerPop','ViolentCrimesPerPop']
-    
-    data = pd.read_csv('data/communities_and_crime/communities.data', names=cols)
-    drop_cols = ['county', 'community', 'OtherPerCap', 'LemasSwornFT','LemasSwFTPerPop','LemasSwFTFieldOps',
-    'LemasSwFTFieldPerPop','LemasTotalReq','LemasTotReqPerPop','PolicReqPerOffic','PolicPerPop','RacialMatchCommPol',
-    'PctPolicWhite','PctPolicBlack','PctPolicHisp','PctPolicAsian','PctPolicMinor','OfficAssgnDrugUnits','NumKindsDrugsSeiz',
-    'PolicAveOTWorked','PolicCars','PolicOperBudg','LemasPctPolicOnPatr','LemasGangUnitDeploy','PolicBudgPerPop']
-    data = data.drop(drop_cols, axis=1)
-    cat_cols = ['state', 'communityname']
-    data = pd.get_dummies(data, columns=cat_cols, prefix=cat_cols, drop_first=True)
-    data['ViolentCrimesPerPop'] = data['ViolentCrimesPerPop']>=.7
-    data['ViolentCrimesPerPop'] = data['ViolentCrimesPerPop'].astype(int)
-    y = data['ViolentCrimesPerPop']
-    X = data.drop('ViolentCrimesPerPop', axis=1)
-    X.columns = [_str_replace(col) for col in X.columns]
-    return X.reset_index(drop=True), y.reset_index(drop=True)
-
-def get_diabetes_data():
-    data = pd.read_csv('data/diabetes/diabetic_data.csv', na_values=['?'])
-    data = data.drop(['encounter_id', 'patient_nbr', 'weight', 'payer_code', 'medical_specialty'], axis=1)
-    data = data[data['readmitted']!='NO']
-    data = data.dropna()
-
-    data['change'] = data['change'] == 'Ch'
-    data['change'] = data['change'].apply(lambda x: int(x))
-
-    data.loc[data['gender']=='Male', 'gender'] = 1
-    data.loc[data['gender']=='Female', 'gender'] = 0
-
-    data.loc[data['diabetesMed']=='Yes', 'diabetesMed'] = 1
-    data.loc[data['diabetesMed']=='No', 'diabetesMed'] = 0
-
-    cat_cols = ['race', 'age', 'A1Cresult', 'metformin', 'chlorpropamide', 'glipizide', 'rosiglitazone', 'acarbose', 
-    'miglitol', 'admission_type_id', 'discharge_disposition_id', 'admission_source_id', 'diag_1', 'diag_2', 'diag_3',
-    'max_glu_serum', 'repaglinide', 'nateglinide', 'glimepiride', 'acetohexamide', 'glyburide', 'tolbutamide', 'pioglitazone',
-    'troglitazone', 'tolazamide', 'examide', 'citoglipton', 'insulin', 'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone', 
-    'metformin-rosiglitazone', 'metformin-pioglitazone']
-    data = pd.get_dummies(data, columns=cat_cols, prefix=cat_cols, drop_first=True)
-    data['readmitted'] = (data['readmitted'] == '<30').astype(int)
-    y = data['readmitted']
-    X = data.drop('readmitted', axis=1)
-    X.columns = [_str_replace(col) for col in X.columns]
-    return X.reset_index(drop=True), y.reset_index(drop=True)
-
-def get_ricci_data():
-    data = pd.read_csv('data/ricci/ricci.csv')
-    data.loc[data['Promoted']==-1, 'Promoted'] = 0
-    data.loc[data['Race']=='White', 'Race'] = 1
-    data.loc[data['Race']=='Non-White', 'Race'] = 0
-    data.loc[data['Position']=='Captain', 'Position'] = 1
-    data.loc[data['Position']=='Lieutenant', 'Position'] = 0
-
-    y = data['Promoted']
-    X = data.drop('Promoted', axis=1)
-    X.columns = [_str_replace(col) for col in X.columns]
-    return X.reset_index(drop=True), y.reset_index(drop=True)
-
-def get_student_data(subject):
-    if subject == 'mat':
-        data = pd.read_table('data/student_performance/student-mat.csv', sep=';')
-    elif subject == 'por':
-        data = pd.read_table('data/student_performance/student-por.csv', sep=';')
-    else:
-        raise ValueError("Subject must be one of ['mat', 'por']")
-    data.loc[data['sex']=='M', 'sex'] = 1
-    data.loc[data['sex']=='F', 'sex'] = 0
-    data.loc[data['school']=='GP', 'school'] = 1
-    data.loc[data['school']=='MS', 'school'] = 0
-    data.loc[data['address']=='U', 'address'] = 1
-    data.loc[data['address']=='R', 'address'] = 0
-    data.loc[data['famsize']=='LE3', 'famsize'] = 1
-    data.loc[data['famsize']=='GT3', 'famsize'] = 0
-    data.loc[data['Pstatus']=='T', 'Pstatus'] = 1
-    data.loc[data['Pstatus']=='A', 'Pstatus'] = 0
-
-    bin_cols = ['schoolsup', 'famsup', 'paid', 'activities', 'nursery', 'higher', 'internet', 'romantic']
-    for col in bin_cols:
-        data.loc[data[col]=='yes', col] = 1
-        data.loc[data[col]=='no', col] = 0
-
-    cat_cols = ['Mjob', 'Fjob', 'reason', 'guardian']
-    data = pd.get_dummies(data, columns=cat_cols, prefix=cat_cols, drop_first=True)
-    data['G3'] = (data['G3'] >= 10).astype(int)
-    y = data['G3']
-    X = data.drop('G3', axis=1)
-    X.columns = [_str_replace(col) for col in X.columns]
-    return X.reset_index(drop=True), y.reset_index(drop=True)
-
 def get_oulad_data():
+    '''
+    ref:
+    Kuzilek J., Hlosta M., Zdrahal Z. Open University Learning Analytics dataset Sci. 
+    Data 4:170171 doi: 10.1038/sdata.2017.171 (2017).
+    '''
     data = pd.read_csv('data/oulad/studentInfo.csv')
     data['gender'] = (data['gender'] == 'M').astype(int)
     data['disability'] = (data['disability'] == 'Y').astype(int)
@@ -259,6 +145,13 @@ def get_oulad_data():
     return X.reset_index(drop=True), y.reset_index(drop=True)
 
 def get_lawschool_data():
+    '''
+    ref:
+    Wightman, L. F. (1998). LSAC national longitudinal bar passage study. LSAC research report series.
+    
+    Le Quy, T., Roy, A., Friege, G., & Ntoutsi, E. (2021). Fair-capacitated clustering. In Proceedings 
+    of the 14th International Conference on Educational Data Mining (EDM21). (pp. 407-414).
+    '''
     data = pd.read_csv('data/lawschool/law_dataset.csv')
     data['fulltime'] = (data['fulltime'] == 1).astype(int)
     data['race'] = (data['race'] == 'White').astype(int)
@@ -272,4 +165,3 @@ def get_lawschool_data():
     X = data.drop('pass_bar', axis=1)
     X.columns = [_str_replace(col) for col in X.columns]
     return X.reset_index(drop=True), y.reset_index(drop=True)
-
