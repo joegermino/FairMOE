@@ -29,6 +29,7 @@ Kewen Peng, Joymallya Chakraborty, and Tim Menzies. 2022. FairMask: Better Fairn
 Zafar, M.B., Valera, I., Rogriguez, M.G. & Gummadi, K.P.. (2017). Fairness Constraints: Mechanisms for Fair Classification.  Proceedings of the 20th International Conference on Artificial Intelligence and Statistics, in Proceedings of Machine Learning Research 54:962-970 Available from https://proceedings.mlr.press/v54/zafar17a.html.
 
 Data Sources:
+
 Becker,Barry and Kohavi,Ronny. (1996). Adult. UCI Machine Learning Repository. https://doi.org/10.24432/C5XW20.
 
 Hofmann,Hans. (1994). Statlog (German Credit Data). UCI Machine Learning Repository. https://doi.org/10.24432/C5NC77.
