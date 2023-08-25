@@ -18,7 +18,7 @@ data: publicly available datasets used in experiments (courtesy UCI Machine Lear
 
 analysis.ipynb: Initial analysis of results from experiments
 
-## Benchmark References:
+# Benchmark References:
 
 [1] Agarwal, A., Beygelzimer, A., Dudik, M., Langford, J. & Wallach, H.. (2018). A Reductions Approach to Fair Classification. Proceedings of the 35th International Conference on Machine Learning, in Proceedings of Machine Learning Research 80:60-69 Available from https://proceedings.mlr.press/v80/agarwal18a.html.
 
@@ -28,7 +28,7 @@ analysis.ipynb: Initial analysis of results from experiments
 
 [4] Zafar, M.B., Valera, I., Rogriguez, M.G. & Gummadi, K.P.. (2017). Fairness Constraints: Mechanisms for Fair Classification.  Proceedings of the 20th International Conference on Artificial Intelligence and Statistics, in Proceedings of Machine Learning Research 54:962-970 Available from https://proceedings.mlr.press/v54/zafar17a.html.
 
-## Data Sources:
+# Data Sources:
 
 Becker,Barry and Kohavi,Ronny. (1996). Adult. UCI Machine Learning Repository. https://doi.org/10.24432/C5XW20.
 
